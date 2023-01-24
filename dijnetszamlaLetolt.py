@@ -19,8 +19,7 @@ passwd = "Forzaarsenal96"
 # driver.get(url_path)
 driver = webdriver.Chrome(chrome_driver)
 driver.get(url_path)
-
-
+driver.maximize_window()
 
 # login
 login_button = driver.find_element(By.ID, "login-btn")   # HERE I NEED A WAIT
@@ -31,30 +30,19 @@ username_field = driver.find_element(By.NAME, "password")
 username_field.send_keys(passwd)
 username_field.send_keys(Keys.ENTER)
 
-
-
 # find the billing surface: //*[@id="logged_menu"]/li[3]/a
 search_bill_button = driver.find_element(By.XPATH, '//*[@id="logged_menu"]/li[3]/a')
 search_bill_button.click()
 
 # get all elements from the dropdown menus
-drop_down_list = driver.find_elements(By.ID, "sopts")
-# here I should call the Class, that downloads all the bills
-list_element = driver.find_element(By.PARTIAL_LINK_TEXT, str(drop_down_list[1].text))
+select_text = driver.find_elements(By.NAME, "szlaszolgnev")
+# the 'select_text' gives back a string with all the provideers names, that is why I had to make a dropdown_options_list
+dropdown_options_list = select_text[0].text.split('\n')
 
-for i in drop_down_list:
-    print(i.text)
+select_option = driver.find_element(By.LINK_TEXT, dropdown_options_list[1].strip())
 
-def fucker():
-    pass
+# for choice_name in dropdown_options_list:
+#     select_option = driver.find_element(By.LINK_TEXT, choice_name.strip())
+#     print(select_option.text)
 
-# """         ERROR:
-# selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"partial link text","selector":" BKM NONPROFIT Zrt.
-# DFaktorház Zrt.
-# Díjbeszedő Zrt.
-# FCSM Zrt.
-# FV Zrt.
-# Társ.díj felosz
-# """
-
-# driver.close()
+driver.close()
