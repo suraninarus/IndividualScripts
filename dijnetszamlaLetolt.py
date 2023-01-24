@@ -1,20 +1,26 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+# from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 # path = r"C:\Users\Zsolt\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\names.txt"
-chrome_driver = r"C:\Users\Zsolt\Desktop\learningMaterial\Python\Selenium\drivers\chromedriver_win32\chromedriver.exe"
+# chrome_driver = r"C:\Users\Zsolt\Desktop\learningMaterial\Python\Selenium\drivers\chromedriver_win32\chromedriver.exe" # Driver on the Win machine
+
+chrome_driver = r"C:\Drivers\Chrome\chromedriver.exe"   # Driver on the office machine
 url_path = r"https://www.dijnet.hu/"
 user = "hozsolti"
 passwd = "Forzaarsenal96"
 
 
 # got to the homepage
-service = Service(chrome_driver)
-driver = webdriver.Chrome(service=service)
+# service = Service(chrome_driver)
+# driver = webdriver.Chrome(service=service)
+# driver.get(url_path)
+driver = webdriver.Chrome(chrome_driver)
 driver.get(url_path)
+
+
 
 # login
 login_button = driver.find_element(By.ID, "login-btn")   # HERE I NEED A WAIT
