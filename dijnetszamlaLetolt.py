@@ -39,12 +39,45 @@ cookie = wait.until(EC.visibility_of(driver.find_element(By.ID, "CybotCookiebotD
 cookie.click()
 
 select_text = driver.find_elements(By.NAME, "szlaszolgnev")
-dropdown_options_list = select_text[0].text.split('\n')
+provider_dropdown_options_list = select_text[0].text.split('\n')
+
+""" INNEN LEHET MAJD HíVNI A CLASS-T """
+
+# //*[contains(@value, "Díjbeszedő Zrt.")]
+# for provider in provider_dropdown_options_list:
+#     # provider_string = '//*[contains(@value, "{}")]'.format(provider.strip())
+#     dropdown_option = driver.find_element(By.XPATH, '//*[contains(@value, "{}")]'.format(provider.strip()))
+#     print(dropdown_option.text)
 
 
-# Így megtalálja a dropdown-ban a különböző szolgáltató neveket
-# a = driver.find_element(By.XPATH, '//*[@id="sopts"]//option[2]'.format())
-# a.click()
+dropdown_option = driver.find_element(By.XPATH, '//*[contains(@value, "{}")]'.format(provider_dropdown_options_list[0]
+                                                                                     .strip()))
+
+# keresés gombot megtalálni:
+provider_submit_button = driver.find_element(By.ID, "submit")
+provider_submit_button.click()
+
+# coutn how many rows are in the reached table
+count = driver.find_elements_by_xpath("//table/tbody/tr")
+# print(len(count))
+lista = range(0, len(count))                                     # ezt lehetne használni a táblázat hosszának megállapításához
+
+for r_number in lista:
+    """ Evvel végig lehet majd lépegetni az egyes szolgáltatóknál lévő számla sorokon. """
+    id_text = "r_{}".format(r_number)
+    # print(id_text)
+    row = driver.find_element(By.ID, id_text)
+    row.click()
+    break
+
+"""Megkeresem a számla letöltéséhez szükséges linket és átmegyek a letöltő oldalra"""
+download_nav_link = driver.find_element(By.XPATH, '//*[contains(@href, "/ekonto/control/szamla_letolt")]')
+download_nav_link.click()
+
+""" tényleges számla letöltés """
+"""<a href="szamla_pdf?1113233069" class="" target="_self">Számla nyomtatható verziója (PDF) - Hiteles számla</a>"""
+download_bill = driver.find_element(By.LINK_TEXT, "Számla nyomtatható verziója (PDF) - Hiteles számla")
+download_bill.click()
 
 # driver.close()
 
