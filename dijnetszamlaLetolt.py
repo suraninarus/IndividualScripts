@@ -62,13 +62,13 @@ count = driver.find_elements_by_xpath("//table/tbody/tr")
 # print(len(count))
 lista = range(0, len(count))                                     # ezt lehetne használni a táblázat hosszának megállapításához
 
-for r_number in lista:
-    """ Evvel végig lehet majd lépegetni az egyes szolgáltatóknál lévő számla sorokon. """
-    id_text = "r_{}".format(r_number)
-    # print(id_text)
-    row = driver.find_element(By.ID, id_text)
-    row.click()
-    break
+# for r_number in lista:
+#     """ Evvel végig lehet majd lépegetni az egyes szolgáltatóknál lévő számla sorokon. """
+#     id_text = "r_{}".format(r_number)
+#     # print(id_text)
+#     row = driver.find_element(By.ID, id_text)
+#     row.click()
+#     break
 
 """Megkeresem a számla letöltéséhez szükséges linket és átmegyek a letöltő oldalra"""
 download_nav_link = driver.find_element(By.XPATH, '//*[contains(@href, "/ekonto/control/szamla_letolt")]')
